@@ -3,15 +3,14 @@
 PKG             := ffmpeg
 $(PKG)_WEBSITE  := https://ffmpeg.org/
 $(PKG)_IGNORE   :=
-$(PKG)_VERSION  := 3.2.4
-$(PKG)_CHECKSUM := c0fa3593a2e9e96ace3c1757900094437ad96d1d6ca19f057c378b5f394496a4
+$(PKG)_VERSION  := 3.4.4
+$(PKG)_CHECKSUM := ce0072f83d97b8689cf3687fe0e9bbb6ca3b14b8b6325f344f651d75998cac76
 $(PKG)_SUBDIR   := $(PKG)-$($(PKG)_VERSION)
 $(PKG)_FILE     := $(PKG)-$($(PKG)_VERSION).tar.bz2
 $(PKG)_URL      := https://ffmpeg.org/releases/$($(PKG)_FILE)
 $(PKG)_URL_2    := https://launchpad.net/ffmpeg/$(call SHORT_PKG_VERSION,$(PKG))/$($(PKG)_VERSION)/+download/$($(PKG)_FILE)
-$(PKG)_DEPS     := gcc bzip2 gnutls lame libass libbluray libbs2b libcaca \
-                   libvpx opencore-amr opus sdl speex theora vidstab \
-                   vo-amrwbenc vorbis x264 xvidcore yasm zlib
+$(PKG)_DEPS     := gcc bzip2 openssl libass \
+                   yasm zlib
 
 # DO NOT ADD fdk-aac OR openssl SUPPORT.
 # Although they are free softwares, their licenses are not compatible with
@@ -38,32 +37,13 @@ define $(PKG)_BUILD
             --disable-static --enable-shared ) \
         --yasmexe='$(TARGET)-yasm' \
         --disable-debug \
-        --enable-memalign-hack \
         --disable-pthreads \
         --enable-w32threads \
         --disable-doc \
         --enable-avresample \
-        --enable-gpl \
-        --enable-version3 \
         --extra-libs='-mconsole' \
-        --enable-avisynth \
-        --enable-gnutls \
-        --enable-libass \
-        --enable-libbluray \
-        --enable-libbs2b \
-        --enable-libcaca \
-        --enable-libmp3lame \
-        --enable-libopencore-amrnb \
-        --enable-libopencore-amrwb \
-        --enable-libopus \
-        --enable-libspeex \
-        --enable-libtheora \
-        --enable-libvidstab \
-        --enable-libvo-amrwbenc \
-        --enable-libvorbis \
-        --enable-libvpx \
-        --enable-libx264 \
-        --enable-libxvid
+        --enable-openssl \
+        --enable-libass
     $(MAKE) -C '$(1)' -j '$(JOBS)'
     $(MAKE) -C '$(1)' -j 1 install
 endef

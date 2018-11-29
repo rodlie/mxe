@@ -4,12 +4,12 @@ PKG             := qtbase
 $(PKG)_WEBSITE  := https://www.qt.io/
 $(PKG)_DESCR    := Qt
 $(PKG)_IGNORE   :=
-$(PKG)_VERSION  := 5.8.0
-$(PKG)_CHECKSUM := c17111ae02a44dc7be1ec2cf979a47ee9e58edf4904041a525c21f4fa53fc005
+$(PKG)_VERSION  := 5.9.3
+$(PKG)_CHECKSUM := 9e7c44005e7691dc7c85165bd4510282c47f0163521f4973eab71dbdb39a9982
 $(PKG)_SUBDIR   := $(PKG)-opensource-src-$($(PKG)_VERSION)
 $(PKG)_FILE     := $(PKG)-opensource-src-$($(PKG)_VERSION).tar.xz
-$(PKG)_URL      := https://download.qt.io/official_releases/qt/5.8/$($(PKG)_VERSION)/submodules/$($(PKG)_FILE)
-$(PKG)_DEPS     := gcc dbus fontconfig freetds freetype harfbuzz jpeg libmysqlclient libpng openssl pcre postgresql sqlite zlib
+$(PKG)_URL      := https://download.qt.io/official_releases/qt/5.9/$($(PKG)_VERSION)/submodules/$($(PKG)_FILE)
+$(PKG)_DEPS     := gcc freetype libpng pcre2 zlib
 
 define $(PKG)_UPDATE
     $(WGET) -q -O- https://download.qt.io/official_releases/qt/5.8/ | \
@@ -22,15 +22,11 @@ endef
 define $(PKG)_BUILD
     # ICU is buggy. See #653. TODO: reenable it some time in the future.
     cd '$(1)' && \
-        OPENSSL_LIBS="`'$(TARGET)-pkg-config' --libs-only-l openssl`" \
-        PSQL_LIBS="-lpq -lsecur32 `'$(TARGET)-pkg-config' --libs-only-l openssl pthreads` -lws2_32" \
-        SYBASE_LIBS="-lsybdb `'$(TARGET)-pkg-config' --libs-only-l gnutls` -liconv -lws2_32" \
         PKG_CONFIG="${TARGET}-pkg-config" \
         PKG_CONFIG_SYSROOT_DIR="/" \
-        PKG_CONFIG_LIBDIR="$(PREFIX)/$(TARGET)/lib/pc" \
+        PKG_CONFIG_LIBDIR="$(PREFIX)/$(TARGET)/lib/pkgconfig" \
         ./configure \
             -opensource \
-            -c++std c++11 \
             -confirm-license \
             -xplatform win32-g++ \
             -device-option CROSS_COMPILE=${TARGET}- \
@@ -44,25 +40,19 @@ define $(PKG)_BUILD
             -no-icu \
             -opengl desktop \
             -no-glib \
-            -accessibility \
+            -no-accessibility \
             -nomake examples \
             -nomake tests \
-            -plugin-sql-mysql \
-            -mysql_config $(PREFIX)/$(TARGET)/bin/mysql_config \
-            -plugin-sql-sqlite \
-            -plugin-sql-odbc \
-            -plugin-sql-psql \
-            -plugin-sql-tds -D Q_USE_SYBASE \
+            -no-sql-sqlite \
             -system-zlib \
             -system-libpng \
-            -system-libjpeg \
-            -system-sqlite \
-            -fontconfig \
+            -no-libjpeg \
+            -no-fontconfig \
+            -no-harfbuzz \
             -system-freetype \
-            -system-harfbuzz \
             -system-pcre \
-            -openssl-linked \
-            -dbus-linked \
+            -no-openssl \
+            -no-dbus \
             -no-pch \
             -v \
             $($(PKG)_CONFIGURE_OPTS)
@@ -103,6 +93,11 @@ define $(PKG)_BUILD
      printf 'test-qt5.exe\r\n'; \
      printf 'test-qtbase-pkgconfig.exe\r\n';) \
      > '$(PREFIX)/$(TARGET)/bin/test-qt5.bat'
+
+    # add libs to CMake config of Qt5Core to fix static linking
+    $(SED) -i 's,set(_Qt5Core_LIB_DEPENDENCIES \"\"),set(_Qt5Core_LIB_DEPENDENCIES \"ole32;uuid;ws2_32;advapi32;shell32;user32;kernel32;mpr;version;winmm;z;pcre2-16\"),g' '$(PREFIX)/$(TARGET)/qt5/lib/cmake/Qt5Core/Qt5CoreConfig.cmake'
+    $(SED) -i 's,set(_Qt5Gui_LIB_DEPENDENCIES \"Qt5::Core\"),set(_Qt5Gui_LIB_DEPENDENCIES \"Qt5::Core;ole32;uuid;ws2_32;advapi32;shell32;user32;kernel32;mpr;version;winmm;z;pcre2-16;png16;harfbuzz;z\"),g' '$(PREFIX)/$(TARGET)/qt5/lib/cmake/Qt5Gui/Qt5GuiConfig.cmake'
+    $(SED) -i 's,set(_Qt5Widgets_LIB_DEPENDENCIES \"Qt5::Gui;Qt5::Core\"),set(_Qt5Widgets_LIB_DEPENDENCIES \"Qt5::Gui;Qt5::Core;gdi32;comdlg32;oleaut32;imm32;opengl32;png16;harfbuzz;ole32;uuid;ws2_32;advapi32;shell32;user32;kernel32;mpr;version;winmm;z;pcre2-16;shell32;uxtheme;dwmapi\"),g' '$(PREFIX)/$(TARGET)/qt5/lib/cmake/Qt5Widgets/Qt5WidgetsConfig.cmake'
 endef
 
 

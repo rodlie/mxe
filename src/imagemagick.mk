@@ -4,14 +4,13 @@ PKG             := imagemagick
 $(PKG)_WEBSITE  := https://www.imagemagick.org/
 $(PKG)_DESCR    := ImageMagick
 $(PKG)_IGNORE   :=
-$(PKG)_VERSION  := 6.9.0-0
-$(PKG)_CHECKSUM := 12331c904c691cb128865fdc97e5f8a2654576f9b032e274b74dd7617aa1b9b6
+$(PKG)_VERSION  := 6.9.9-51
+$(PKG)_CHECKSUM := aa5f6b1e97bd98fbf642c47487531bea0faf675c728d01130b52d2b46849104a
 $(PKG)_SUBDIR   := ImageMagick-$($(PKG)_VERSION)
 $(PKG)_FILE     := ImageMagick-$($(PKG)_VERSION).tar.xz
 $(PKG)_URL      := https://www.imagemagick.org/download/releases/$($(PKG)_FILE)
 $(PKG)_URL_2    := https://ftp.sunet.se/pub/multimedia/graphics/ImageMagick/$($(PKG)_FILE)
-$(PKG)_DEPS     := gcc bzip2 ffmpeg fftw freetype jasper jpeg lcms \
-                   liblqr-1 libltdl libpng openexr pthreads tiff
+$(PKG)_DEPS     := gcc xz bzip2 jpeg lcms libpng pthreads tiff zlib
 
 define $(PKG)_UPDATE
     $(WGET) -q -O- 'https://www.imagemagick.org/' | \
@@ -20,13 +19,12 @@ define $(PKG)_UPDATE
 endef
 
 define $(PKG)_BUILD
-    cd '$(1)' && ./configure \
+    cd '$(1)' && LDFLAGS="-lws2_32 -lz" ./configure \
         $(MXE_CONFIGURE_OPTS) \
-        --with-x=no \
-        --without-zlib \
-        --disable-largefile \
-        --without-threads \
-        --with-freetype='$(PREFIX)/$(TARGET)/bin/freetype-config'
+        --with-x=no --disable-docs --disable-modules \
+        --with-zlib --with-lzma --without-xz --without-jasper --enable-hdri --with-quantum-depth=32 \
+        --enable-largefile --without-pango --without-webp --without-fftw --without-lqr \
+        --without-freetype --without-openexr --without-fontconfig
     $(SED) -i 's/#define MAGICKCORE_HAVE_PTHREAD 1//g' '$(1)/magick/magick-baseconfig.h'
     $(SED) -i 's/#define MAGICKCORE_ZLIB_DELEGATE 1//g' '$(1)/magick/magick-config.h'
     $(MAKE) -C '$(1)' -j '$(JOBS)' bin_PROGRAMS=
@@ -35,5 +33,5 @@ define $(PKG)_BUILD
     '$(1)'/libtool --mode=link --tag=CXX \
         '$(TARGET)-g++' -Wall -Wextra -std=gnu++0x \
         '$(TEST_FILE)' -o '$(PREFIX)/$(TARGET)/bin/test-imagemagick.exe' \
-        `'$(TARGET)-pkg-config' ImageMagick++ --cflags --libs`
+        `'$(TARGET)-pkg-config' ImageMagick++-6.Q32HDRI --cflags --libs`
 endef

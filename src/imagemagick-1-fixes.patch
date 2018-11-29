@@ -1,0 +1,89 @@
+--- a/magick/distribute-cache.c.orig	2018-02-26 14:44:26.000000000 +0100
++++ b/magick/distribute-cache.c	2018-02-26 14:45:43.000000000 +0100
+@@ -87,6 +87,8 @@
+ #define LENGTH_TYPE size_t
+ #define MAGICKCORE_HAVE_DISTRIBUTE_CACHE
+ #elif defined(MAGICKCORE_WINDOWS_SUPPORT) && !defined(__MINGW32__)
++#include <winsock2.h>
++#include <ws2tcpip.h>
+ #define CHAR_TYPE_CAST (char *)
+ #define CLOSE_SOCKET(socket) (void) closesocket(socket)
+ #define HANDLER_RETURN_TYPE DWORD WINAPI
+--- a/magick/nt-base.h.orig	2018-02-26 14:45:55.000000000 +0100
++++ b/magick/nt-base.h	2018-02-26 14:47:03.000000000 +0100
+@@ -39,6 +39,8 @@
+ #include <errno.h>
+ #include <malloc.h>
+ #include <sys/utime.h>
++#include <winsock2.h>
++#include <ws2tcpip.h>
+ #if defined(_DEBUG) && !defined(__MINGW32__)
+ #include <crtdbg.h>
+ #endif
+--- a/configure.orig	2018-11-17 23:40:36.412505736 +0100
++++ b/configure	2018-11-17 23:41:57.189507579 +0100
+@@ -33030,7 +33030,7 @@
+   $as_echo_n "(cached) " >&6
+ else
+   ac_check_lib_save_LIBS=$LIBS
+-LIBS="-ltiff  $LIBS"
++LIBS="-ltiff -llzma -lz $LIBS"
+ cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+ /* end confdefs.h.  */
+ 
+@@ -33072,7 +33072,7 @@
+   $as_echo_n "(cached) " >&6
+ else
+   ac_check_lib_save_LIBS=$LIBS
+-LIBS="-ltiff  $LIBS"
++LIBS="-ltiff -llzma -lz $LIBS"
+ cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+ /* end confdefs.h.  */
+ 
+@@ -33114,7 +33114,7 @@
+   $as_echo_n "(cached) " >&6
+ else
+   ac_check_lib_save_LIBS=$LIBS
+-LIBS="-ltiff  $LIBS"
++LIBS="-ltiff -llzma -lz $LIBS"
+ cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+ /* end confdefs.h.  */
+ 
+@@ -33156,7 +33156,7 @@
+   $as_echo_n "(cached) " >&6
+ else
+   ac_check_lib_save_LIBS=$LIBS
+-LIBS="-ltiff  $LIBS"
++LIBS="-ltiff -llzma -lz $LIBS"
+ cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+ /* end confdefs.h.  */
+ 
+@@ -33198,7 +33198,7 @@
+   $as_echo_n "(cached) " >&6
+ else
+   ac_check_lib_save_LIBS=$LIBS
+-LIBS="-ltiff  $LIBS"
++LIBS="-ltiff -llzma -lz $LIBS"
+ cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+ /* end confdefs.h.  */
+ 
+@@ -33242,7 +33242,7 @@
+ $as_echo "no -- some components failed test" >&6; }
+             have_tiff='no (failed tests)'
+         else
+-            TIFF_LIBS='-ltiff'
++            TIFF_LIBS='-ltiff -llzma -lz'
+             LIBS="$TIFF_LIBS $LIBS"
+ 
+ $as_echo "#define TIFF_DELEGATE 1" >>confdefs.h
+--- a/configure.ac.orig	2018-11-17 23:40:30.629505604 +0100
++++ b/configure.ac	2018-11-17 23:40:53.155506118 +0100
+@@ -2744,7 +2744,7 @@
+             AC_MSG_RESULT([no -- some components failed test])
+             have_tiff='no (failed tests)'
+         else
+-            TIFF_LIBS='-ltiff'
++            TIFF_LIBS='-ltiff -llzma -lz'
+             LIBS="$TIFF_LIBS $LIBS"
+             AC_DEFINE(TIFF_DELEGATE,1,Define if you have TIFF library)
+             AC_MSG_RESULT([yes])

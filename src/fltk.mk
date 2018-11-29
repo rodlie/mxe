@@ -9,7 +9,7 @@ $(PKG)_CHECKSUM := f8398d98d7221d40e77bc7b19e761adaf2f1ef8bb0c30eceb7beb4f2273d0
 $(PKG)_SUBDIR   := $(PKG)-$($(PKG)_VERSION)
 $(PKG)_FILE     := $($(PKG)_SUBDIR)-source.tar.gz
 $(PKG)_URL      := http://fltk.org/pub/fltk/$($(PKG)_VERSION)/$($(PKG)_FILE)
-$(PKG)_DEPS     := gcc jpeg libpng pthreads zlib
+$(PKG)_DEPS     := gcc pthreads
 
 define $(PKG)_UPDATE
     $(WGET) -q -O- 'http://www.fltk.org/' | \
@@ -22,7 +22,7 @@ define $(PKG)_BUILD
     $(SED) -i 's,\$$uname,MINGW,g' '$(1)/configure'
     cd '$(1)' && ./configure \
         $(MXE_CONFIGURE_OPTS) \
-        --enable-threads \
+        --disable-threads --disable-gl --enable-localjpeg --enable-localzlib --enable-localpng \
         LIBS='-lws2_32'
     # enable exceptions, because disabling them doesn't make any sense on PCs
     $(SED) -i 's,-fno-exceptions,,' '$(1)/makeinclude'

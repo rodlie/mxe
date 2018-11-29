@@ -1,19 +1,19 @@
 # This file is part of MXE. See LICENSE.md for licensing information.
 
 PKG             := tiff
-$(PKG)_WEBSITE  := http://www.libtiff.org/
+$(PKG)_WEBSITE  := http://simplesystems.org/libtiff/
 $(PKG)_DESCR    := LibTIFF
 $(PKG)_IGNORE   :=
-$(PKG)_VERSION  := 4.0.7
-$(PKG)_CHECKSUM := 9f43a2cfb9589e5cecaa66e16bf87f814c945f22df7ba600d63aac4632c4f019
+$(PKG)_VERSION  := 4.0.10
+$(PKG)_CHECKSUM := 2c52d11ccaf767457db0c46795d9c7d1a8d8f76f68b0b800a3dfe45786b996e4
 $(PKG)_SUBDIR   := tiff-$($(PKG)_VERSION)
 $(PKG)_FILE     := tiff-$($(PKG)_VERSION).tar.gz
 $(PKG)_URL      := http://download.osgeo.org/libtiff/$($(PKG)_FILE)
 $(PKG)_URL_2    := ftp://ftp.remotesensing.org/libtiff/$($(PKG)_FILE)
-$(PKG)_DEPS     := gcc jpeg xz zlib
+$(PKG)_DEPS     := gcc xz jpeg zlib
 
 define $(PKG)_UPDATE
-    $(WGET) -q -O- 'http://www.libtiff.org/' | \
+    $(WGET) -q -O- 'http://simplesystems.org/libtiff/' | \
     $(SED) -n 's,.*>v\([0-9][^<]*\)<.*,\1,p' | \
     head -1
 endef

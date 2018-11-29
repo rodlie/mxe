@@ -3,13 +3,11 @@
 PKG             := libtorrent-rasterbar
 $(PKG)_WEBSITE  := http://www.rasterbar.com/products/libtorrent/
 $(PKG)_IGNORE   :=
-$(PKG)_VERSION  := 1.1.0
-$(PKG)_CHECKSUM := 2713df7da4aec5263ac11b6626ea966f368a5a8081103fd8f2f2ed97b5cd731d
+$(PKG)_VERSION  := 1.1.9
+$(PKG)_CHECKSUM := d57a0f5b159f58003c3031943463503f0d05ae3e428dd7c2383d1e35fb2c4e8c
 $(PKG)_SUBDIR   := libtorrent-rasterbar-$($(PKG)_VERSION)
 $(PKG)_FILE     := libtorrent-rasterbar-$($(PKG)_VERSION).tar.gz
-$(PKG)_URL      := https://github.com/arvidn/libtorrent/releases/download/libtorrent-$(subst .,_,$($(PKG)_VERSION))/libtorrent-rasterbar-$($(PKG)_VERSION).tar.gz
-# this will likely revert to standard naming in future releases
-$(PKG)_URL      := https://github.com/arvidn/libtorrent/releases/download/libtorrent-1_1/libtorrent-rasterbar-$($(PKG)_VERSION).tar.gz
+$(PKG)_URL      := https://cryon.eu/opensource/libtorrent-rasterbar-$($(PKG)_VERSION).tar.gz
 $(PKG)_DEPS     := gcc boost openssl
 
 define $(PKG)_UPDATE
@@ -31,4 +29,4 @@ define $(PKG)_BUILD
     $(MAKE) -C '$(1)' -j 1 install
 endef
 
-$(PKG)_BUILD_SHARED =
+#$(PKG)_BUILD_SHARED =
