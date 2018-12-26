@@ -3,19 +3,13 @@
 PKG             := ffmpeg
 $(PKG)_WEBSITE  := https://ffmpeg.org/
 $(PKG)_IGNORE   :=
-$(PKG)_VERSION  := 3.4.4
-$(PKG)_CHECKSUM := ce0072f83d97b8689cf3687fe0e9bbb6ca3b14b8b6325f344f651d75998cac76
+$(PKG)_VERSION  := 3.4.5
+$(PKG)_CHECKSUM := 741cbd6394eaed370774ca4cc089eaafbc54d0824b9aa360d4b3b0cbcbc4a92c
 $(PKG)_SUBDIR   := $(PKG)-$($(PKG)_VERSION)
-$(PKG)_FILE     := $(PKG)-$($(PKG)_VERSION).tar.bz2
+$(PKG)_FILE     := $(PKG)-$($(PKG)_VERSION).tar.xz
 $(PKG)_URL      := https://ffmpeg.org/releases/$($(PKG)_FILE)
 $(PKG)_URL_2    := https://launchpad.net/ffmpeg/$(call SHORT_PKG_VERSION,$(PKG))/$($(PKG)_VERSION)/+download/$($(PKG)_FILE)
-$(PKG)_DEPS     := gcc bzip2 openssl libass \
-                   yasm zlib
-
-# DO NOT ADD fdk-aac OR openssl SUPPORT.
-# Although they are free softwares, their licenses are not compatible with
-# the GPL, and we'd like to enable GPL in our default ffmpeg build.
-# See docs/index.html#potential-legal-issues
+$(PKG)_DEPS     := gcc bzip2 yasm zlib
 
 define $(PKG)_UPDATE
     $(WGET) -q -O- 'https://ffmpeg.org/releases/' | \
@@ -42,8 +36,8 @@ define $(PKG)_BUILD
         --disable-doc \
         --enable-avresample \
         --extra-libs='-mconsole' \
-        --enable-openssl \
-        --enable-libass
+        --disable-openssl \
+        --disable-libass
     $(MAKE) -C '$(1)' -j '$(JOBS)'
     $(MAKE) -C '$(1)' -j 1 install
 endef
