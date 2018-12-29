@@ -21,12 +21,12 @@ endef
 define $(PKG)_BUILD
     cd '$(1)' && LDFLAGS="-lws2_32 -lz" ./configure \
         $(MXE_CONFIGURE_OPTS) \
-        --with-x=no --disable-docs --disable-modules --disable-openmp \
+        --with-x=no --disable-docs --disable-modules --enable-openmp \
         --with-zlib --with-lzma --without-jasper --enable-hdri --with-quantum-depth=16 \
         --enable-largefile --without-pango --without-webp --without-fftw --without-lqr \
         --without-freetype --without-openexr --without-fontconfig \
         --enable-zero-configuration --with-package-release-name=Cyan
-    $(SED) -i 's/#define MAGICKCORE_HAVE_PTHREAD 0//g' '$(1)/MagickCore/magick-baseconfig.h'
+    $(SED) -i 's/#define MAGICKCORE_HAVE_PTHREAD 1//g' '$(1)/MagickCore/magick-baseconfig.h'
     $(SED) -i 's/#define MAGICKCORE_ZLIB_DELEGATE 1//g' '$(1)/MagickCore/magick-config.h'
     $(MAKE) -C '$(1)' -j '$(JOBS)' bin_PROGRAMS=
     $(MAKE) -C '$(1)' -j 1 install bin_PROGRAMS=
