@@ -10,7 +10,7 @@ $(PKG)_SUBDIR   := ImageMagick-$($(PKG)_VERSION)
 $(PKG)_FILE     := ImageMagick-$($(PKG)_VERSION).tar.xz
 $(PKG)_URL      := https://www.imagemagick.org/download/releases/$($(PKG)_FILE)
 $(PKG)_URL_2    := https://ftp.sunet.se/pub/multimedia/graphics/ImageMagick/$($(PKG)_FILE)
-$(PKG)_DEPS     := gcc xz bzip2 jpeg lcms libpng tiff zlib pthreads
+$(PKG)_DEPS     := gcc xz bzip2 jpeg lcms libpng tiff zlib pthreads openjpeg openexr libraw
 
 define $(PKG)_UPDATE
     $(WGET) -q -O- 'https://www.imagemagick.org/' | \
@@ -21,10 +21,10 @@ endef
 define $(PKG)_BUILD
     cd '$(1)' && LDFLAGS="-lws2_32 -lz" ./configure \
         $(MXE_CONFIGURE_OPTS) \
-        --with-x=no --disable-docs --disable-modules --enable-openmp \
-        --with-zlib --with-lzma --without-jasper --enable-hdri --with-quantum-depth=16 \
+        --with-x=no --disable-docs --enable-openmp \
+        --with-zlib --with-lzma --with-raw=yes --with-openjp2=yes --enable-hdri --with-quantum-depth=16 \
         --enable-largefile --without-pango --without-webp --without-fftw --without-lqr \
-        --without-freetype --without-openexr --without-fontconfig \
+        --without-freetype --with-openexr --with-modules=no --without-fontconfig \
         --enable-zero-configuration --with-package-release-name=Cyan
 #    $(SED) -i 's/#define MAGICKCORE_HAVE_PTHREAD 1//g' '$(1)/MagickCore/magick-baseconfig.h'
     $(SED) -i 's/#define MAGICKCORE_ZLIB_DELEGATE 1//g' '$(1)/MagickCore/magick-config.h'

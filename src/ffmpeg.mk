@@ -9,7 +9,7 @@ $(PKG)_SUBDIR   := $(PKG)-$($(PKG)_VERSION)
 $(PKG)_FILE     := $(PKG)-$($(PKG)_VERSION).tar.xz
 $(PKG)_URL      := https://ffmpeg.org/releases/$($(PKG)_FILE)
 $(PKG)_URL_2    := https://launchpad.net/ffmpeg/$(call SHORT_PKG_VERSION,$(PKG))/$($(PKG)_VERSION)/+download/$($(PKG)_FILE)
-$(PKG)_DEPS     := gcc bzip2 yasm zlib
+$(PKG)_DEPS     := gcc bzip2 yasm zlib xz openjpeg jpeg
 
 define $(PKG)_UPDATE
     $(WGET) -q -O- 'https://ffmpeg.org/releases/' | \
@@ -33,11 +33,34 @@ define $(PKG)_BUILD
         --disable-debug \
         --disable-pthreads \
         --enable-w32threads \
-        --disable-doc \
-        --enable-avresample \
         --extra-libs='-mconsole' \
-        --disable-openssl \
-        --disable-libass
+        --disable-libass \
+        --enable-small \
+        --disable-programs \
+        --disable-doc \
+        --enable-avdevice \
+        --enable-avcodec \
+        --enable-avformat \
+        --enable-swscale \
+        --disable-swresample \
+        --disable-postproc \
+        --disable-avfilter \
+        --disable-avresample \
+        --disable-network \
+        --enable-demuxers \
+        --enable-decoders \
+        --disable-encoders \
+        --disable-hwaccels \
+        --enable-muxers \
+        --enable-parsers \
+        --disable-bsfs \
+        --enable-protocols \
+        --disable-devices \
+        --disable-filters \
+        --disable-librsvg \
+        --enable-libopenjpeg \
+        --disable-libxml2 \
+        --disable-openssl
     $(MAKE) -C '$(1)' -j '$(JOBS)'
     $(MAKE) -C '$(1)' -j 1 install
 endef

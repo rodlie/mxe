@@ -22,7 +22,7 @@ endef
 define $(PKG)_BUILD
     mkdir '$(1).build'
     cd '$(1).build' && '$(TARGET)-cmake' \
-        -DBUILD_TESTING=FALSE \
+        -DBUILD_TESTING=FALSE -DBUILD_PKGCONFIG_FILES=ON \
         '$(1)'
     $(MAKE) -C '$(1).build' install
 endef

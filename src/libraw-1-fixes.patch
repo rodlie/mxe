@@ -1,0 +1,21 @@
+--- a/CMakeLists.txt.orig	2018-12-30 09:32:28.547298913 +0100
++++ b/CMakeLists.txt	2018-12-30 09:32:53.007400945 +0100
+@@ -541,15 +541,15 @@
+ # -- Files to install -------------------------------------------------------------------------------------
+ 
+ # Configure and install data file for packaging.
+-IF(NOT WIN32)
++#IF(NOT WIN32)
+     CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/cmake/data/libraw.pc.cmake ${CMAKE_CURRENT_BINARY_DIR}/libraw.pc @ONLY)
+     INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/libraw.pc DESTINATION lib${LIB_SUFFIX}/pkgconfig)
+ 
+     CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/cmake/data/libraw_r.pc.cmake ${CMAKE_CURRENT_BINARY_DIR}/libraw_r.pc @ONLY)
+     INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/libraw_r.pc DESTINATION lib${LIB_SUFFIX}/pkgconfig)
+ 
+-    CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/cmake/data/libraw.lsm.cmake ${CMAKE_CURRENT_BINARY_DIR}/libraw.lsm)
+-ENDIF()
++#    CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/cmake/data/libraw.lsm.cmake ${CMAKE_CURRENT_BINARY_DIR}/libraw.lsm)
++#ENDIF()
+ 
+ # Install Shared header files.
+ INSTALL(FILES       ${CMAKE_CURRENT_SOURCE_DIR}/libraw/libraw.h
