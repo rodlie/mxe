@@ -9,7 +9,7 @@ $(PKG)_CHECKSUM := 36dd9574f006eaa1e5af780e4b33d11fe39d09fd7c12f3b9d83294174bd28
 $(PKG)_SUBDIR   := $(PKG)-opensource-src-$($(PKG)_VERSION)
 $(PKG)_FILE     := $(PKG)-opensource-src-$($(PKG)_VERSION).tar.xz
 $(PKG)_URL      := https://download.qt.io/official_releases/qt/5.9/$($(PKG)_VERSION)/submodules/$($(PKG)_FILE)
-$(PKG)_DEPS     := gcc freetype libpng pcre2 zlib
+$(PKG)_DEPS     := gcc freetype libpng pcre2 zlib pthreads
 
 define $(PKG)_UPDATE
     $(WGET) -q -O- https://download.qt.io/official_releases/qt/5.8/ | \

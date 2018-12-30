@@ -10,7 +10,7 @@ $(PKG)_SUBDIR   := ImageMagick-$($(PKG)_VERSION)
 $(PKG)_FILE     := ImageMagick-$($(PKG)_VERSION).tar.xz
 $(PKG)_URL      := https://www.imagemagick.org/download/releases/$($(PKG)_FILE)
 $(PKG)_URL_2    := https://ftp.sunet.se/pub/multimedia/graphics/ImageMagick/$($(PKG)_FILE)
-$(PKG)_DEPS     := gcc xz bzip2 jpeg lcms libpng tiff zlib
+$(PKG)_DEPS     := gcc xz bzip2 jpeg lcms libpng tiff zlib pthreads
 
 define $(PKG)_UPDATE
     $(WGET) -q -O- 'https://www.imagemagick.org/' | \
@@ -26,7 +26,7 @@ define $(PKG)_BUILD
         --enable-largefile --without-pango --without-webp --without-fftw --without-lqr \
         --without-freetype --without-openexr --without-fontconfig \
         --enable-zero-configuration --with-package-release-name=Cyan
-    $(SED) -i 's/#define MAGICKCORE_HAVE_PTHREAD 1//g' '$(1)/MagickCore/magick-baseconfig.h'
+#    $(SED) -i 's/#define MAGICKCORE_HAVE_PTHREAD 1//g' '$(1)/MagickCore/magick-baseconfig.h'
     $(SED) -i 's/#define MAGICKCORE_ZLIB_DELEGATE 1//g' '$(1)/MagickCore/magick-config.h'
     $(MAKE) -C '$(1)' -j '$(JOBS)' bin_PROGRAMS=
     $(MAKE) -C '$(1)' -j 1 install bin_PROGRAMS=
