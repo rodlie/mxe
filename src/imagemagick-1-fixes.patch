@@ -87,3 +87,35 @@
              LIBS="$TIFF_LIBS $LIBS"
  
  $as_echo "#define TIFF_DELEGATE 1" >>confdefs.h
+--- a/configure.orig	2018-12-31 01:05:24.755459290 +0100
++++ b/configure	2018-12-31 01:06:29.946508641 +0100
+@@ -36687,9 +36687,9 @@
+ if test "$have_djvu"    = 'yes' ; then
+    MAGICK_DELEGATES="$MAGICK_DELEGATES djvu"
+ fi
+-if test "$have_avconv"   = 'yes' ; then
+-   MAGICK_DELEGATES="$MAGICK_DELEGATES mpeg"
+-fi
++#if test "$have_avconv"   = 'yes' ; then
++#   MAGICK_DELEGATES="$MAGICK_DELEGATES mpeg"
++#fi
+ if test "$have_fftw"    = 'yes' ; then
+    MAGICK_DELEGATES="$MAGICK_DELEGATES fftw"
+ fi
+@@ -36742,11 +36742,11 @@
+    MAGICK_DELEGATES="$MAGICK_DELEGATES png"
+ fi
+ have_ps='no'
+-if test "$have_dps"    = 'yes' || \
+-   test "$have_gs" = 'yes' || \
+-   test "${native_win32_build}" = 'yes' ; then
+-   have_ps='yes'
+-fi
++#if test "$have_dps"    = 'yes' || \
++#   test "$have_gs" = 'yes' || \
++#   test "${native_win32_build}" = 'yes' ; then
++#   have_ps='yes'
++#fi
+ if test "$have_ps"     = 'yes' ; then
+    MAGICK_DELEGATES="$MAGICK_DELEGATES ps"
+ fi

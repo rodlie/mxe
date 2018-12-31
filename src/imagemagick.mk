@@ -10,7 +10,9 @@ $(PKG)_SUBDIR   := ImageMagick-$($(PKG)_VERSION)
 $(PKG)_FILE     := ImageMagick-$($(PKG)_VERSION).tar.xz
 $(PKG)_URL      := https://www.imagemagick.org/download/releases/$($(PKG)_FILE)
 $(PKG)_URL_2    := https://ftp.sunet.se/pub/multimedia/graphics/ImageMagick/$($(PKG)_FILE)
-$(PKG)_DEPS     := gcc xz bzip2 jpeg lcms libpng tiff zlib pthreads openjpeg openexr libraw
+$(PKG)_DEPS     := gcc xz bzip2 jpeg lcms libpng tiff zlib pthreads openjpeg
+# openexr
+# libraw
 
 define $(PKG)_UPDATE
     $(WGET) -q -O- 'https://www.imagemagick.org/' | \
@@ -21,12 +23,50 @@ endef
 define $(PKG)_BUILD
     cd '$(1)' && LDFLAGS="-lws2_32 -lz" ./configure \
         $(MXE_CONFIGURE_OPTS) \
-        --with-x=no --disable-docs --enable-openmp \
-        --with-zlib --with-lzma --with-raw=yes --with-openjp2=yes --enable-hdri --with-quantum-depth=16 \
-        --enable-largefile --without-pango --without-webp --without-fftw --without-lqr \
-        --without-freetype --with-openexr --with-modules=no --without-fontconfig \
-        --enable-zero-configuration --with-package-release-name=Cyan
-#    $(SED) -i 's/#define MAGICKCORE_HAVE_PTHREAD 1//g' '$(1)/MagickCore/magick-baseconfig.h'
+	--enable-zero-configuration \
+	--enable-hdri \
+	--enable-largefile \
+	--disable-deprecated \
+	--disable-pipes \
+	--disable-docs \
+	--disable-legacy-support \
+	--with-package-release-name=Cyan \
+	--with-utilities=no \
+	--with-quantum-depth=16 \
+	--with-bzlib=yes \
+	--with-autotrace=no \
+	--with-djvu=no \
+	--with-dps=no \
+	--with-fftw=no \
+	--with-flif=no \
+	--with-fpx=no \
+	--with-fontconfig=no \
+	--with-freetype=no \
+	--with-gslib=no \
+	--with-gvc=no \
+	--with-heic=no \
+	--with-jbig=no \
+	--with-jpeg=yes \
+	--with-lcms=yes \
+	--with-lqr=no \
+	--with-ltdl=no \
+	--with-lzma=yes \
+	--with-magick-plus-plus=yes \
+	--with-openexr=no \
+	--with-openjp2=yes \
+	--with-pango=no \
+	--with-perl=no \
+	--with-png=yes \
+	--with-raqm=no \
+	--with-raw=no \
+	--with-rsvg=no \
+	--with-tiff=yes \
+	--with-webp=no \
+	--with-wmf=no \
+	--with-x=no \
+	--with-xml=no \
+	--with-zlib=yes \
+	--with-zstd=no
     $(SED) -i 's/#define MAGICKCORE_ZLIB_DELEGATE 1//g' '$(1)/MagickCore/magick-config.h'
     $(MAKE) -C '$(1)' -j '$(JOBS)' bin_PROGRAMS=
     $(MAKE) -C '$(1)' -j 1 install bin_PROGRAMS=
