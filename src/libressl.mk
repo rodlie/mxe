@@ -12,7 +12,7 @@ $(PKG)_URL      := https://ftp.openbsd.org/pub/OpenBSD/LibreSSL/$($(PKG)_FILE)
 $(PKG)_DEPS     := cc
 
 define $(PKG)_BUILD
-    cd '$(BUILD_DIR)' && $(TARGET)-cmake '$(SOURCE_DIR)'
+    cd '$(BUILD_DIR)' && $(TARGET)-cmake -DCMAKE_INSTALL_PREFIX='$(PREFIX)/$(TARGET)/libressl' '$(SOURCE_DIR)'
     $(MAKE) -C '$(BUILD_DIR)' -j $(JOBS)
     $(MAKE) -C '$(BUILD_DIR)' -j 1 install
 endef
