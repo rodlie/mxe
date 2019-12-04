@@ -9,7 +9,7 @@ $(PKG)_CHECKSUM := 20fbc7efa54ff7db9552a7a2cdf9047b80253c1933c834f35b0bc5c1ae021
 $(PKG)_SUBDIR   := $(PKG)-everywhere-src-$($(PKG)_VERSION)
 $(PKG)_FILE     := $(PKG)-everywhere-src-$($(PKG)_VERSION).tar.xz
 $(PKG)_URL      := https://download.qt.io/official_releases/qt/5.12/$($(PKG)_VERSION)/submodules/$($(PKG)_FILE)
-$(PKG)_DEPS     := cc openssl
+$(PKG)_DEPS     := cc zlib openssl
 $(PKG)_DEPS_$(BUILD) :=
 $(PKG)_TARGETS  := $(BUILD) $(MXE_TARGETS)
 
@@ -24,6 +24,7 @@ endef
 define $(PKG)_BUILD
     # ICU is buggy. See #653. TODO: reenable it some time in the future.
     cd '$(1)' && \
+        OPENSSL_LIBS="`'$(TARGET)-pkg-config' --libs-only-l openssl`" \
         PKG_CONFIG="${TARGET}-pkg-config" \
         PKG_CONFIG_SYSROOT_DIR="/" \
         PKG_CONFIG_LIBDIR="$(PREFIX)/$(TARGET)/lib/pkgconfig" \
