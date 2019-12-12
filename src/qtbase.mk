@@ -9,7 +9,7 @@ $(PKG)_CHECKSUM := 20fbc7efa54ff7db9552a7a2cdf9047b80253c1933c834f35b0bc5c1ae021
 $(PKG)_SUBDIR   := $(PKG)-everywhere-src-$($(PKG)_VERSION)
 $(PKG)_FILE     := $(PKG)-everywhere-src-$($(PKG)_VERSION).tar.xz
 $(PKG)_URL      := https://download.qt.io/official_releases/qt/5.12/$($(PKG)_VERSION)/submodules/$($(PKG)_FILE)
-$(PKG)_DEPS     := cc zlib openssl
+$(PKG)_DEPS     := cc zlib libpng openssl
 $(PKG)_DEPS_$(BUILD) :=
 $(PKG)_TARGETS  := $(BUILD) $(MXE_TARGETS)
 
@@ -47,8 +47,8 @@ define $(PKG)_BUILD
             -accessibility \
             -nomake examples \
             -nomake tests \
-            -qt-zlib \
-            -qt-libpng \
+            -system-zlib \
+            -system-libpng \
             -no-libjpeg \
             -no-sqlite \
             -no-fontconfig \
