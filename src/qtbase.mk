@@ -28,7 +28,6 @@ define $(PKG)_BUILD
         PKG_CONFIG="${TARGET}-pkg-config" \
         PKG_CONFIG_SYSROOT_DIR="/" \
         PKG_CONFIG_LIBDIR="$(PREFIX)/$(TARGET)/lib/pkgconfig" \
-        CONFIG-=debug_and_release \
         ./configure \
             -opensource \
             -confirm-license \
@@ -60,7 +59,7 @@ define $(PKG)_BUILD
             -openssl-linked \
             -no-pch \
             -v \
-            $($(PKG)_CONFIGURE_OPTS) CONFIG-=debug_and_release
+            $($(PKG)_CONFIGURE_OPTS)
 
     $(MAKE) -C '$(1)' -j '$(JOBS)'
     rm -rf '$(PREFIX)/$(TARGET)/qt5'
