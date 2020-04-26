@@ -4,8 +4,8 @@ PKG             := qtbase
 $(PKG)_WEBSITE  := https://www.qt.io/
 $(PKG)_DESCR    := Qt
 $(PKG)_IGNORE   :=
-$(PKG)_VERSION  := 5.12.4
-$(PKG)_CHECKSUM := 20fbc7efa54ff7db9552a7a2cdf9047b80253c1933c834f35b0bc5c1ae021195
+$(PKG)_VERSION  := 5.12.8
+$(PKG)_CHECKSUM := 19592fbd0a524a17c35e413988fe494251103619ef7dd49aecdf3170973aabd8
 $(PKG)_SUBDIR   := $(PKG)-everywhere-src-$($(PKG)_VERSION)
 $(PKG)_FILE     := $(PKG)-everywhere-src-$($(PKG)_VERSION).tar.xz
 $(PKG)_URL      := https://download.qt.io/official_releases/qt/5.12/$($(PKG)_VERSION)/submodules/$($(PKG)_FILE)
@@ -28,6 +28,7 @@ define $(PKG)_BUILD
         PKG_CONFIG="${TARGET}-pkg-config" \
         PKG_CONFIG_SYSROOT_DIR="/" \
         PKG_CONFIG_LIBDIR="$(PREFIX)/$(TARGET)/lib/pkgconfig" \
+        CONFIG-=debug_and_release \
         ./configure \
             -opensource \
             -confirm-license \
@@ -59,7 +60,7 @@ define $(PKG)_BUILD
             -openssl-linked \
             -no-pch \
             -v \
-            $($(PKG)_CONFIGURE_OPTS)
+            $($(PKG)_CONFIGURE_OPTS) CONFIG-=debug_and_release
 
     $(MAKE) -C '$(1)' -j '$(JOBS)'
     rm -rf '$(PREFIX)/$(TARGET)/qt5'
