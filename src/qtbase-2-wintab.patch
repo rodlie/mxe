@@ -1,0 +1,15 @@
+--- a/src/plugins/platforms/windows/qwindowscontext.cpp.orig	2020-04-14 09:48:23.563846375 +0200
++++ b/src/plugins/platforms/windows/qwindowscontext.cpp	2020-04-14 09:48:58.562864863 +0200
+@@ -220,9 +220,10 @@
+ 
+ bool QWindowsUser32DLL::supportsPointerApi()
+ {
+-    return enableMouseInPointer && getPointerType && getPointerInfo && getPointerDeviceRects
++    /*return enableMouseInPointer && getPointerType && getPointerInfo && getPointerDeviceRects
+             && getPointerTouchInfo && getPointerFrameTouchInfo && getPointerFrameTouchInfoHistory
+-            && getPointerPenInfo && getPointerPenInfoHistory && skipPointerFrameMessages;
++            && getPointerPenInfo && getPointerPenInfoHistory && skipPointerFrameMessages;*/
++    return false;
+ }
+ 
+ void QWindowsShcoreDLL::init()
