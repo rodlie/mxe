@@ -22,18 +22,17 @@ define $(PKG)_UPDATE
 endef
 
 define $(PKG)_BUILD
-    cd '$(1)' && autoreconf && LDFLAGS="-lws2_32 -lz" ./configure \
+    cd '$(1)' && LDFLAGS="-lws2_32 -lz" ./configure \
         $(MXE_CONFIGURE_OPTS) \
 	--enable-zero-configuration \
-	--enable-hdri \
+	--$(if $(findstring x86_64,$(TARGET)),enable,disable)-hdri \
 	--enable-largefile \
 	--disable-deprecated \
 	--disable-pipes \
 	--disable-docs \
 	--disable-legacy-support \
-	--with-package-release-name=Cyan \
 	--with-utilities=no \
-	--with-quantum-depth=16 \
+	--with-quantum-depth=$(if $(findstring x86_64,$(TARGET)),16,8) \
 	--with-bzlib=yes \
 	--with-autotrace=no \
 	--with-djvu=no \
