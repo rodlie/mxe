@@ -40,7 +40,6 @@ define $(PKG)_BUILD
             -release \
             -shared \
             -sse2 -sse3 -ssse3 -sse4.1 -no-sse4.2 -no-avx -no-avx2 -no-avx512 \
-            -qtnamespace Cyan -qtlibinfix Cyan \
             -prefix '$(PREFIX)/$(TARGET)/qt5' \
             -no-icu \
             -opengl desktop \
