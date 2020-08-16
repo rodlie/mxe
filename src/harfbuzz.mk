@@ -7,7 +7,7 @@ $(PKG)_IGNORE   :=
 $(PKG)_VERSION  := 2.7.0
 $(PKG)_CHECKSUM := 4dba05de1fd44705f54c40d801e0e3d4833555d004cb611cc18675173feae75b
 $(PKG)_GH_CONF  := harfbuzz/harfbuzz/releases
-$(PKG)_DEPS     := cc cairo freetype-bootstrap glib
+$(PKG)_DEPS     := cc cairo freetype-bootstrap glib icu4c
 
 define $(PKG)_BUILD
     # mman-win32 is only a partial implementation
