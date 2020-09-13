@@ -9,7 +9,7 @@ $(PKG)_CHECKSUM := 19592fbd0a524a17c35e413988fe494251103619ef7dd49aecdf3170973aa
 $(PKG)_SUBDIR   := $(PKG)-everywhere-src-$($(PKG)_VERSION)
 $(PKG)_FILE     := $(PKG)-everywhere-src-$($(PKG)_VERSION).tar.xz
 $(PKG)_URL      := https://download.qt.io/official_releases/qt/5.12/$($(PKG)_VERSION)/submodules/$($(PKG)_FILE)
-$(PKG)_DEPS     := cc freetype harfbuzz libpng pcre2 zlib
+$(PKG)_DEPS     := cc libpng zlib
 $(PKG)_DEPS_$(BUILD) :=
 $(PKG)_TARGETS  := $(BUILD) $(MXE_TARGETS)
 
@@ -52,9 +52,9 @@ define $(PKG)_BUILD
             -no-libjpeg \
             -no-sqlite \
             -no-fontconfig \
-            -system-freetype \
-            -system-harfbuzz \
-            -system-pcre \
+            -qt-freetype \
+            -qt-harfbuzz \
+            -qt-pcre \
             -no-ssl \
             -no-pch \
             -no-dbus \

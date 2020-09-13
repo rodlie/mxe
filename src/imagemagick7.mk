@@ -2,18 +2,12 @@ PKG             := imagemagick7
 $(PKG)_WEBSITE  := https://www.imagemagick.org/
 $(PKG)_DESCR    := ImageMagick
 $(PKG)_IGNORE   :=
-$(PKG)_VERSION  := 7.0.8-34
-# .34 0456bb9617144619f56103414e13ae0bbfa63af68a60e5967a41fe69e7fb57bf
-$(PKG)_CHECKSUM := 0456bb9617144619f56103414e13ae0bbfa63af68a60e5967a41fe69e7fb57bf
+$(PKG)_VERSION  := 7.0.10-26
+$(PKG)_CHECKSUM := 7bd6c9e9f18093630ff2cb5992b3f4e190f105f73eabf3de1093542f0da8f32b
 $(PKG)_SUBDIR   := ImageMagick-$($(PKG)_VERSION)
 $(PKG)_FILE     := ImageMagick-$($(PKG)_VERSION).tar.xz
 $(PKG)_URL      := https://mirror.sobukus.de/files/src/imagemagick/$($(PKG)_FILE)
-#$(PKG)_URL_2    := https://ftp.sunet.se/pub/multimedia/graphics/ImageMagick/$($(PKG)_FILE)
 $(PKG)_DEPS     := cc xz bzip2 jpeg lcms libpng tiff zlib pthreads openjpeg libwebp
-# openexr
-# librsvg libxml2
-# libraw
-# pango
 
 define $(PKG)_UPDATE
     $(WGET) -q -O- 'https://www.imagemagick.org/' | \
@@ -53,15 +47,15 @@ define $(PKG)_BUILD
 	--with-lzma=yes \
 	--with-magick-plus-plus=yes \
 	--with-openexr=no \
-	--with-openjp2=yes \
+	--with-openjp2=no \
 	--with-pango=no \
-        --with-librsvg=no \
+	--with-librsvg=no \
 	--with-perl=no \
 	--with-png=yes \
 	--with-raqm=no \
 	--with-raw=no \
 	--with-tiff=yes \
-	--with-webp=yes \
+	--with-webp=no \
 	--with-wmf=no \
 	--with-x=no \
 	--with-xml=no \
