@@ -1,51 +1,91 @@
---- a/configure.orig	2020-09-13 18:58:52.697057451 +0200
-+++ b/configure	2020-09-13 19:00:35.717364087 +0200
-@@ -32799,7 +32799,7 @@
+--- a/configure	2020-09-13 23:44:04.600086267 +0200
++++ b/configure	2020-09-13 23:44:04.620086353 +0200
+@@ -33356,13 +33356,13 @@
+ fi
+ 
+ 
+-    { $as_echo "$as_me:${as_lineno-$LINENO}: checking for TIFFOpen in -ltiff" >&5
+-$as_echo_n "checking for TIFFOpen in -ltiff... " >&6; }
++    { $as_echo "$as_me:${as_lineno-$LINENO}: checking for TIFFOpen in -ltiff -lwebp -llzma" >&5
++$as_echo_n "checking for TIFFOpen in -ltiff -lwebp -llzma... " >&6; }
+ if ${ac_cv_lib_tiff_TIFFOpen+:} false; then :
    $as_echo_n "(cached) " >&6
  else
    ac_check_lib_save_LIBS=$LIBS
 -LIBS="-ltiff  $LIBS"
-+LIBS="-ltiff  -lwebp -llzma $LIBS"
++LIBS="-ltiff -lwebp -llzma  $LIBS"
  cat confdefs.h - <<_ACEOF >conftest.$ac_ext
  /* end confdefs.h.  */
  
-@@ -32841,7 +32841,7 @@
+@@ -33398,13 +33398,13 @@
+   failed=`expr $failed + 1`
+ fi
+ 
+-    { $as_echo "$as_me:${as_lineno-$LINENO}: checking for TIFFClientOpen in -ltiff" >&5
+-$as_echo_n "checking for TIFFClientOpen in -ltiff... " >&6; }
++    { $as_echo "$as_me:${as_lineno-$LINENO}: checking for TIFFClientOpen in -ltiff -lwebp -llzma" >&5
++$as_echo_n "checking for TIFFClientOpen in -ltiff -lwebp -llzma... " >&6; }
+ if ${ac_cv_lib_tiff_TIFFClientOpen+:} false; then :
    $as_echo_n "(cached) " >&6
  else
    ac_check_lib_save_LIBS=$LIBS
 -LIBS="-ltiff  $LIBS"
-+LIBS="-ltiff  -lwebp -llzma $LIBS"
++LIBS="-ltiff -lwebp -llzma  $LIBS"
  cat confdefs.h - <<_ACEOF >conftest.$ac_ext
  /* end confdefs.h.  */
  
-@@ -32883,7 +32883,7 @@
+@@ -33440,13 +33440,13 @@
+   failed=`expr $failed + 1`
+ fi
+ 
+-    { $as_echo "$as_me:${as_lineno-$LINENO}: checking for TIFFIsByteSwapped in -ltiff" >&5
+-$as_echo_n "checking for TIFFIsByteSwapped in -ltiff... " >&6; }
++    { $as_echo "$as_me:${as_lineno-$LINENO}: checking for TIFFIsByteSwapped in -ltiff -lwebp -llzma" >&5
++$as_echo_n "checking for TIFFIsByteSwapped in -ltiff -lwebp -llzma... " >&6; }
+ if ${ac_cv_lib_tiff_TIFFIsByteSwapped+:} false; then :
    $as_echo_n "(cached) " >&6
  else
    ac_check_lib_save_LIBS=$LIBS
 -LIBS="-ltiff  $LIBS"
-+LIBS="-ltiff  -lwebp -llzma $LIBS"
++LIBS="-ltiff -lwebp -llzma  $LIBS"
  cat confdefs.h - <<_ACEOF >conftest.$ac_ext
  /* end confdefs.h.  */
  
-@@ -32925,7 +32925,7 @@
+@@ -33482,13 +33482,13 @@
+   failed=`expr $failed + 1`
+ fi
+ 
+-    { $as_echo "$as_me:${as_lineno-$LINENO}: checking for TIFFReadRGBATile in -ltiff" >&5
+-$as_echo_n "checking for TIFFReadRGBATile in -ltiff... " >&6; }
++    { $as_echo "$as_me:${as_lineno-$LINENO}: checking for TIFFReadRGBATile in -ltiff -lwebp -llzma" >&5
++$as_echo_n "checking for TIFFReadRGBATile in -ltiff -lwebp -llzma... " >&6; }
+ if ${ac_cv_lib_tiff_TIFFReadRGBATile+:} false; then :
    $as_echo_n "(cached) " >&6
  else
    ac_check_lib_save_LIBS=$LIBS
 -LIBS="-ltiff  $LIBS"
-+LIBS="-ltiff  -lwebp -llzma $LIBS"
++LIBS="-ltiff -lwebp -llzma  $LIBS"
  cat confdefs.h - <<_ACEOF >conftest.$ac_ext
  /* end confdefs.h.  */
  
-@@ -32967,7 +32967,7 @@
+@@ -33524,13 +33524,13 @@
+   failed=`expr $failed + 1`
+ fi
+ 
+-    { $as_echo "$as_me:${as_lineno-$LINENO}: checking for TIFFReadRGBAStrip in -ltiff" >&5
+-$as_echo_n "checking for TIFFReadRGBAStrip in -ltiff... " >&6; }
++    { $as_echo "$as_me:${as_lineno-$LINENO}: checking for TIFFReadRGBAStrip in -ltiff -lwebp -llzma" >&5
++$as_echo_n "checking for TIFFReadRGBAStrip in -ltiff -lwebp -llzma... " >&6; }
+ if ${ac_cv_lib_tiff_TIFFReadRGBAStrip+:} false; then :
    $as_echo_n "(cached) " >&6
  else
    ac_check_lib_save_LIBS=$LIBS
 -LIBS="-ltiff  $LIBS"
-+LIBS="-ltiff  -lwebp -llzma $LIBS"
++LIBS="-ltiff -lwebp -llzma  $LIBS"
  cat confdefs.h - <<_ACEOF >conftest.$ac_ext
  /* end confdefs.h.  */
  
-@@ -33011,7 +33011,7 @@
+@@ -33574,7 +33574,7 @@
  $as_echo "no -- some components failed test" >&6; }
              have_tiff='no (failed tests)'
          else
