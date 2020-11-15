@@ -9,7 +9,7 @@ $(PKG)_SUBDIR   := ImageMagick-$($(PKG)_VERSION)
 $(PKG)_FILE     := ImageMagick-$($(PKG)_VERSION).tar.xz
 $(PKG)_URL      := https://mirror.sobukus.de/files/src/imagemagick/$($(PKG)_FILE)
 #$(PKG)_URL_2    := https://ftp.sunet.se/pub/multimedia/graphics/ImageMagick/$($(PKG)_FILE)
-$(PKG)_DEPS     := cc xz bzip2 jpeg lcms libpng tiff zlib pthreads openjpeg libwebp
+$(PKG)_DEPS     := cc xz bzip2 jpeg lcms libpng tiff zlib pthreads openjpeg libwebp libheif
 # openexr
 # librsvg libxml2
 # libraw
@@ -44,7 +44,7 @@ define $(PKG)_BUILD
 	--with-freetype=no \
 	--with-gslib=no \
 	--with-gvc=no \
-	--with-heic=no \
+	--with-heic=yes \
 	--with-jbig=no \
 	--with-jpeg=yes \
 	--with-lcms=yes \
