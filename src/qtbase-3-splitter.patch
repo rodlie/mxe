@@ -1,0 +1,11 @@
+--- a/src/widgets/widgets/qsplitter.cpp.orig	2020-11-26 23:36:36.643621125 +0100
++++ b/src/widgets/widgets/qsplitter.cpp	2020-11-26 23:46:21.570588771 +0100
+@@ -1737,7 +1737,7 @@
+     d->setSizes_helper(list, false);
+ 
+     stream >> b;
+-    setChildrenCollapsible(b);
++    setChildrenCollapsible(false);
+ 
+     stream >> i;
+     setHandleWidth(i);

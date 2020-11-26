@@ -1,0 +1,15 @@
+prefix=/home/olear/Development/cyan/mxe/usr/x86_64-w64-mingw32.static
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include/ImageMagick-7
+includearchdir=/home/olear/Development/cyan/mxe/usr/x86_64-w64-mingw32.static/include/ImageMagick-7
+libname=MagickCore-7.Q16HDRI
+moduledir=${exec_prefix}/lib/ImageMagick-7.0.8/modules-Q16HDRI
+ 
+Name: MagickCore
+Description: MagickCore - C API for ImageMagick (ABI Q16HDRI)
+URL: https://github.com/ImageMagick
+Version: 7.0.8
+Cflags: -I${includearchdir} -I${includedir} -fopenmp -DMAGICKCORE_HDRI_ENABLE=1 -DMAGICKCORE_QUANTUM_DEPTH=16 -D_LIB -D_MT
+Libs: -L${libdir} -l${libname}
+Libs.private: -L${libdir} -l${libname}   -llcms2 -ltiff -lm -lpthread -lwebp -llzma -ljpeg -lz   -ltiff -lwebp -llzma   -ljpeg   -lpng16 -lz         -lheif -laom -lde265  -lm -lpthread -lstdc++   -lwebpmux -lwebp -lm    -lwebp -lm          -llzma   -lbz2  -lopenjp2 -lm        -lz     -lgdi32 -lws2_32 -lm     -lgomp -lm
