@@ -4,12 +4,12 @@ PKG             := qtbase
 $(PKG)_WEBSITE  := https://www.qt.io/
 $(PKG)_DESCR    := Qt
 $(PKG)_IGNORE   :=
-$(PKG)_VERSION  := 5.12.8
-$(PKG)_CHECKSUM := 19592fbd0a524a17c35e413988fe494251103619ef7dd49aecdf3170973aabd8
+$(PKG)_VERSION  := 5.12.10
+$(PKG)_CHECKSUM := 8088f174e6d28e779516c083b6087b6a9e3c8322b4bc161fd1b54195e3c86940
 $(PKG)_SUBDIR   := $(PKG)-everywhere-src-$($(PKG)_VERSION)
 $(PKG)_FILE     := $(PKG)-everywhere-src-$($(PKG)_VERSION).tar.xz
 $(PKG)_URL      := https://download.qt.io/official_releases/qt/5.12/$($(PKG)_VERSION)/submodules/$($(PKG)_FILE)
-$(PKG)_DEPS     := cc libressl
+$(PKG)_DEPS     := cc
 $(PKG)_DEPS_$(BUILD) :=
 $(PKG)_TARGETS  := $(BUILD) $(MXE_TARGETS)
 
@@ -38,9 +38,9 @@ define $(PKG)_BUILD
             -force-pkg-config \
             -no-use-gold-linker \
             -release \
-            -shared \
+            -static \
             -sse2 -sse3 -ssse3 -sse4.1 -no-sse4.2 -no-avx -no-avx2 -no-avx512 \
-            -qtnamespace Fx -qtlibinfix Fx \
+            -qtnamespace NettStudio -qtlibinfix NettStudio \
             -prefix '$(PREFIX)/$(TARGET)/qt5' \
             -no-icu \
             -opengl desktop \
@@ -56,7 +56,7 @@ define $(PKG)_BUILD
             -qt-freetype \
             -no-harfbuzz \
             -qt-pcre \
-            -openssl-linked \
+            -no-ssl \
             -no-pch \
             -v \
             $($(PKG)_CONFIGURE_OPTS)
