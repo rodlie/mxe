@@ -38,7 +38,7 @@ define $(PKG)_BUILD
             -force-pkg-config \
             -no-use-gold-linker \
             -release \
-            -static \
+            -shared \
             -sse2 -sse3 -ssse3 -sse4.1 -no-sse4.2 -no-avx -no-avx2 -no-avx512 \
             -qtnamespace NettStudio -qtlibinfix NettStudio \
             -prefix '$(PREFIX)/$(TARGET)/qt5' \
