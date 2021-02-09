@@ -38,8 +38,8 @@ define $(PKG)_BUILD
             -force-pkg-config \
             -no-use-gold-linker \
             -release \
-            -shared \
-            -sse2 -sse3 -ssse3 -sse4.1 -no-sse4.2 -no-avx -no-avx2 -no-avx512 \
+            -static \
+            -sse2 -sse3 -ssse3 -no-sse4.1 -no-sse4.2 -no-avx -no-avx2 -no-avx512 \
             -qtnamespace NettStudio -qtlibinfix NettStudio \
             -prefix '$(PREFIX)/$(TARGET)/qt5' \
             -no-icu \
@@ -89,7 +89,7 @@ define $(PKG)_BUILD
     #    `'$(TARGET)-pkg-config' Qt5Widgets$(BUILD_TYPE_SUFFIX) --cflags --libs`
 
     # setup cmake toolchain
-    echo 'set(CMAKE_SYSTEM_PREFIX_PATH "$(PREFIX)/$(TARGET)/qt5" ${CMAKE_SYSTEM_PREFIX_PATH})' > '$(CMAKE_TOOLCHAIN_DIR)/$(PKG).cmake'
+    #echo 'set(CMAKE_SYSTEM_PREFIX_PATH "$(PREFIX)/$(TARGET)/qt5" ${CMAKE_SYSTEM_PREFIX_PATH})' > '$(CMAKE_TOOLCHAIN_DIR)/$(PKG).cmake'
 
     # batch file to run test programs
     #(printf 'set PATH=..\\lib;..\\qt5\\bin;..\\qt5\\lib;%%PATH%%\r\n'; \
